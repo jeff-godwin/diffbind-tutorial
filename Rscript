@@ -1,0 +1,29 @@
+## Reference from - https://bioconductor.org/packages/release/bioc/vignettes/DiffBind/inst/doc/DiffBind.pdf
+## Input is from macs2 narrow peak file and metadata file
+
+samples <- read.table("metadata.txt",sep="\t",header=TRUE)
+data <- dba(sampleSheet=samples)
+
+# correlation plot
+plot(data)
+
+# count reads
+data <- dba.count(data)
+
+#setup contrast
+data <- dba.contrast(data,categories=DBA_CONDITION, minMembers = 2)
+## minmembers is number of replicates
+## categories can be one of DBA_ID,DBA_TISSUE,DBA_FACTOR,DBA_CONDITION,DBA_TREATMENT,DBA_REPLICATE,DBA_CALLER
+## Decide categories based on metadata (which one is used to distinguish between samples i.e setup control and treated)
+
+## by default, it will run deseq2
+data <- dba.analyze(data)
+
+##For differential summary
+res_deseq <- dba.report(data,bUsePval=TRUE,th=0.05,contrast=1)
+#By default dba.report used FDR for filtering. P-value is shown in this example
+
+deseq <- as.data.frame(res_deseq)
+write.table(deseq,file="deseq_atac.txt",sep="\t")
+
+
