@@ -1,0 +1,5 @@
+SampleID	Tissue	Factor	Condition	Treatment	Replicate	bamReads	Peaks	PeakCaller
+control_1	liver	plus	control	pap	1	control1.bam	control1_peaks.narrowPeak	bed
+control_2	liver	plus	control	pap	2	control2.bam	control2_peaks.narrowPeak	bed
+treated_1	liver	plus	treated	pap	1	treated1.bam	treated1_peaks.narrowPeak	bed
+treated_2	liver	plus	treated	pap	2	treated2.bam	treated2_peaks.narrowPeak	bed
